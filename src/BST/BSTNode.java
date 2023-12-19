@@ -1,3 +1,5 @@
+package BST;
+
 class BSTNode {
     int val;
     BSTNode left;
