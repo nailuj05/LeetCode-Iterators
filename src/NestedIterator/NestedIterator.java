@@ -8,13 +8,6 @@ public class NestedIterator implements Iterator<Integer> {
     public NestedIterator(List<NestedInteger> nestedList) {
         flatStack = new LinkedList<>();
         pushAll(nestedList);
-
-        NestedInteger current = flatStack.pop();
-
-        while(!current.isInteger()){
-            pushAll(current.getList());
-            current = flatStack.pop();
-        }
     }
 
     @Override
@@ -34,14 +27,13 @@ public class NestedIterator implements Iterator<Integer> {
         return !flatStack.isEmpty();
     }
 
-    public void pushFlat(List<NestedInteger> l) {
-
-    }
-
     public void pushAll(List<NestedInteger> l) {
         for (int i = l.size() - 1; i >= 0; i--) {
-            if(l.get(i) != null)
-                flatStack.push(l.get(i));
+            NestedInteger n = l.get(i);
+            if(n.isInteger())
+                flatStack.push(n);
+            else
+                pushAll(n.getList());
         }
     }
     
